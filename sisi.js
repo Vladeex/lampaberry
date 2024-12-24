@@ -650,7 +650,7 @@
 
   var ApiHttp$1 = new ApiHttp();
 
-  var Api = ApiHttp$1; //true ? ApiPWA$1 : ApiHttp$1;
+  var Api = ApiHttp$1;
 
   function Sisi(object) {
     var comp = new Lampa.InteractionMain(object);
@@ -976,24 +976,5 @@
 
   if (!window['plugin_durexsisi_' + Defined.use_api + '_ready']) {
     startPlugin();
-    /*
-    if(true){
-        let s = document.createElement('script')
-            s.onload = function(){
-                Blazor.start({
-                    loadBootResource: function (type, name, defaultUri, integrity) {
-                        return Defined.framework+'/_framework/' + name
-                    }
-                })
-                  startPlugin()
-            }
-              s.setAttribute('autostart', 'false')
-            s.setAttribute('src', Defined.framework+'/_framework/blazor.webassembly.js')
-        
-            document.body.appendChild(s)
-    }
-    else startPlugin()
-    */
   }
-
 })();
