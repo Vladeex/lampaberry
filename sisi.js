@@ -30,7 +30,7 @@
     return Lampa.Utils.capitalizeFirstLetter(title.split('.')[0]);
   }
 
-  function isVIP() {
+  function isVIP(element) {
     return false;
   }
 
@@ -128,6 +128,10 @@
 
   function play(element) {
     var controller_enabled = Lampa.Controller.enabled().name;
+
+    if (isVIP(element)) {
+        return modal();
+    }
 
     if (element.json) {
       Lampa.Loading.start(function() {
