@@ -30,6 +30,10 @@
     return Lampa.Utils.capitalizeFirstLetter(title.split('.')[0]);
   }
 
+  function isVIP() {
+    return false;
+  }
+
   function qualityDefault(qualitys) {
     var preferably = Lampa.Storage.get('video_quality_default', '1080') + 'p';
     var url;
@@ -325,6 +329,7 @@
     sourceTitle: sourceTitle,
     play: play,
     fixCards: fixCards,
+    isVIP: isVIP,
     preview: preview,
     hidePreview: hidePreview,
     fixList: fixList,
