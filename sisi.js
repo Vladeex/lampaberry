@@ -34,21 +34,6 @@
     return false;
   }
 
-  function qualityDefault(qualitys) {
-    var preferably = Lampa.Storage.get('video_quality_default', '1080') + 'p';
-    var url;
-
-    if (qualitys) {
-      for (var q in qualitys) {
-        if (q.indexOf(preferably) == 0) url = qualitys[q];
-      }
-
-      if (!url) url = qualitys[Lampa.Arrays.getKeys(qualitys)[0]];
-    }
-
-    return url;
-  }
-
   if (window.rchtype == undefined) {
     window.rchtype = 'web';
     var check = function check(good) {
@@ -126,11 +111,41 @@
     }
   }
 
+  function modal() {
+    var id = Lampa.Storage.get('sisi_unic_id', '').toLowerCase();
+    var controller = Lampa.Controller.enabled().name;
+    var content = "<div class=\"about\">\n        <div>\u042D\u0442\u043E \u0432\u0438\u0434\u0435\u043E \u0434\u043E\u0441\u0442\u0443\u043F\u043D\u043E \u0441 VIP \u043F\u043E\u0434\u043F\u0438\u0441\u043A\u043E\u0439. \u0414\u043B\u044F \u043F\u043E\u0434\u043A\u043B\u044E\u0447\u0435\u043D\u0438\u044F VIP \u043F\u043E\u0434\u043F\u0438\u0441\u043A\u0438, \u043F\u0435\u0440\u0435\u0439\u0434\u0438\u0442\u0435 \u043D\u0430 \u0441\u0430\u0439\u0442 \u043A\u043E\u0442\u043E\u0440\u044B\u0439 \u0443\u043A\u0430\u0437\u0430\u043D \u043D\u0438\u0436\u0435 \u0438 \u0443\u043A\u0430\u0436\u0438\u0442\u0435 \u0432\u0430\u0448 ID</div>\n        <div class=\"about__contacts\">\n            <div>\n                <small>\u0421\u0430\u0439\u0442</small><br>\n                ".concat(Defined.vip_site, "\n            </div>\n\n            <div>\n                <small>\u0412\u0430\u0448 ID</small><br>\n                ").concat(id, "\n            </div>\n        </div>\n    </div>");
+    Lampa.Modal.open({
+      title: 'VIP Контент',
+      html: $(content),
+      size: 'medium',
+      onBack: function onBack() {
+        Lampa.Modal.close();
+        Lampa.Controller.toggle(controller);
+      }
+    });
+  }
+
+  function qualityDefault(qualitys) {
+    var preferably = Lampa.Storage.get('video_quality_default', '1080') + 'p';
+    var url;
+
+    if (qualitys) {
+      for (var q in qualitys) {
+        if (q.indexOf(preferably) == 0) url = qualitys[q];
+      }
+
+      if (!url) url = qualitys[Lampa.Arrays.getKeys(qualitys)[0]];
+    }
+
+    return url;
+  }
+
   function play(element) {
     var controller_enabled = Lampa.Controller.enabled().name;
 
     if (isVIP(element)) {
-        return modal();
+      return modal();
     }
 
     if (element.json) {
@@ -654,7 +669,7 @@
 
   var ApiHttp$1 = new ApiHttp();
 
-  var Api = ApiHttp$1;
+  var Api = ApiHttp$1; //true ? ApiPWA$1 : ApiHttp$1;
 
   function Sisi(object) {
     var comp = new Lampa.InteractionMain(object);
@@ -980,5 +995,24 @@
 
   if (!window['plugin_durexsisi_' + Defined.use_api + '_ready']) {
     startPlugin();
+    /*
+    if(true){
+        let s = document.createElement('script')
+            s.onload = function(){
+                Blazor.start({
+                    loadBootResource: function (type, name, defaultUri, integrity) {
+                        return Defined.framework+'/_framework/' + name
+                    }
+                })
+                  startPlugin()
+            }
+              s.setAttribute('autostart', 'false')
+            s.setAttribute('src', Defined.framework+'/_framework/blazor.webassembly.js')
+        
+            document.body.appendChild(s)
+    }
+    else startPlugin()
+    */
   }
+
 })();
